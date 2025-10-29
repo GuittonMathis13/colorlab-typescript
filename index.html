@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ColorLab (TS)</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div class="brand">
+        <h1>🎨 ColorLab (TS)</h1>
+        <p class="subtitle">Couleur aléatoire • Historique • PINS • Dégradé HSL</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-theme" class="btn ghost" title="Basculer thème">🌓</button>
+      </div>
+    </header>
+
+    <section class="preview" id="color-preview" aria-label="Aperçu de la couleur">
+      <div id="wcag-badge" class="wcag-badge" aria-live="polite">AA</div>
+      <div id="preview-border" class="preview-border" aria-hidden="true"></div>
+    </section>
+
+    <section class="current">
+      <div class="code" id="color-code" aria-live="polite">#000000</div>
+      <div class="actions">
+        <button id="btn-new" class="btn primary" title="Nouvelle couleur (Entrée)">Nouvelle couleur</button>
+        <button id="btn-copy" class="btn" title="Copier la couleur">Copier</button>
+        <button id="btn-pin" class="btn" title="Épingler / Désépingler la couleur">Épingler</button>
+        <button id="btn-clear" class="btn danger" title="Vider l’historique">Vider</button>
+      </div>
+      <div id="status" class="status" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <!-- Panneau dégradé -->
+    <section class="panel">
+      <div class="panel-head">
+        <strong>Dégradé HSL</strong>
+        <div class="panel-actions">
+          <label class="chk">
+            <input id="chk-border" type="checkbox" />
+            <span>Bordure dégradée animée</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="gradient-row">
+        <div class="grad-col">
+          <div class="grad-label">A (départ)</div>
+          <button id="grad-a" class="grad-swatch" title="Choisir la couleur A"></button>
+          <input id="input-a" type="color" value="#FF0000" hidden />
+          <button id="btn-a-from-current" class="btn" title="Définir la couleur A">A = courante</button>
+        </div>
+
+        <div class="grad-col">
+          <div class="grad-label">B (arrivée)</div>
+          <button id="grad-b" class="grad-swatch" title="Choisir la couleur B"></button>
+          <input id="input-b" type="color" value="#0000FF" hidden />
+          <button id="btn-b-from-current" class="btn" title="Définir la couleur B">B = courante</button>
+        </div>
+
+        <div class="grad-col">
+          <div class="grad-label">Steps</div>
+          <input id="steps" type="range" min="2" max="24" value="9" />
+          <div id="steps-val" class="muted">9</div>
+        </div>
+      </div>
+
+      <div class="gradient-preview">
+        <div id="gradient-circle" class="gradient-circle" aria-label="Aperçu radial du dégradé"></div>
+        <div id="gradient-steps" class="gradient-steps" aria-label="Palette du dégradé"></div>
+      </div>
+
+      <p class="muted" style="font-size:12px;margin-top:6px;">
+        Astuce : cliquez une pastille du dégradé pour charger la couleur 👌
+      </p>
+    </section>
+
+    <section class="pins">
+      <h2>Épinglées</h2>
+      <div id="pins-grid" class="history-grid" role="list" aria-label="Couleurs épinglées"></div>
+    </section>
+
+    <section class="history">
+      <h2>Historique (10 dernières)</h2>
+      <div id="history-grid" class="history-grid" role="list" aria-label="Historique de couleurs"></div>
+    </section>
+
+    <footer class="footer">
+      <small>
+        TS + DOM + localStorage • Core typé + badge WCAG • Store versionné • Dégradé HSL
+      </small>
+    </footer>
+  </main>
+
+  <div id="toast-root" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts en ordre : Core → Store → App -->
+  <script src="./dist/src/color-core.js?v=2" defer></script>
+  <script src="./dist/src/store.js?v=1" defer></script>
+  <script src="./dist/main.js?v=14" defer></script>
+</body>
+</html>
